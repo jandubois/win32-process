@@ -302,6 +302,8 @@ Create(cP,appname,cmdline,inherit,flags,curdir)
     DWORD flags
     char *curdir
 CODE:
+    appname = SvOK(ST(1)) ? appname : 0;
+    cmdline = SvOK(ST(2)) ? cmdline : 0;
     RETVAL = Create(cP, appname, cmdline, inherit, flags, curdir);
 OUTPUT:
     cP
