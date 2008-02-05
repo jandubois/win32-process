@@ -40,6 +40,7 @@ sub AUTOLOAD {
     # XS function.
     my($constname);
     ($constname = $AUTOLOAD) =~ s/.*:://;
+    local $! = 0;
     my $val = constant($constname);
     if ($! != 0) {
         my ($pack,$file,$line) = caller;
