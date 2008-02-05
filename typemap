@@ -1,3 +1,4 @@
+DWORD_PTR               T_UV
 DWORD                   T_NV
 DWORD *                 T_PV
 LPCSTR                  T_PV

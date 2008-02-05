@@ -376,8 +376,8 @@ OUTPUT:
 BOOL
 GetProcessAffinityMask(cP,processAffinityMask,systemAffinityMask)
     cProcess *cP
-    DWORD processAffinityMask = NO_INIT
-    DWORD systemAffinityMask = NO_INIT
+    DWORD_PTR processAffinityMask = NO_INIT
+    DWORD_PTR systemAffinityMask = NO_INIT
 CODE:
     RETVAL = cP->GetProcessAffinityMask(&processAffinityMask,&systemAffinityMask);
 OUTPUT:

@@ -4,6 +4,11 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
+#ifndef _WIN64
+#  define DWORD_PTR	DWORD
+#  define PDWORD_PTR	DWORD*
+#endif
+
 typedef BOOL (*LPSetProcessAffinityMask)(HANDLE, DWORD);
 
 class cProcess
@@ -126,7 +131,7 @@ public:
     }
     BOOL SetPriorityClass( DWORD dwPriorityClass )
 	{ return ::SetPriorityClass( ph, dwPriorityClass ); }
-    BOOL GetProcessAffinityMask( DWORD* pdwProcessAffinityMask, DWORD* pdwSystemAffinityMask )
+    BOOL GetProcessAffinityMask( PDWORD_PTR pdwProcessAffinityMask, PDWORD_PTR pdwSystemAffinityMask )
 	{ return ::GetProcessAffinityMask( ph, pdwProcessAffinityMask, pdwSystemAffinityMask ); }
     BOOL SetProcessAffinityMask( DWORD dwProcessAffinityMask )
     {
