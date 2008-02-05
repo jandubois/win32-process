@@ -21,7 +21,7 @@ Create(cProcess* &cP, char* szAppName, char* szCommLine, DWORD Inherit,
 {
     BOOL bRetVal;
     void *env = NULL;
-#if PERL_VERSION > 5
+#ifdef PERL_IMPLICIT_SYS
     env = PerlEnv_get_childenv();
 #endif
     cP = NULL;
@@ -33,26 +33,10 @@ Create(cProcess* &cP, char* szAppName, char* szCommLine, DWORD Inherit,
     catch (...) {
         bRetVal = FALSE;
     }
-#if PERL_VERSION > 5
+#ifdef PERL_IMPLICIT_SYS
     PerlEnv_free_childenv(env);
 #endif
     return bRetVal;
-}
-
-static BOOL
-CreateW(cProcess* &cP,WCHAR* szAppName,WCHAR* szCommLine,DWORD Inherit,DWORD CreateFlags,WCHAR* szCurrDir)
-{
-    // XXX environment will *not* be correctly inherited.
-    // Alas, we don't have corresponding Unicode accessor
-    // functions for the hosts environment.
-    cP = NULL;
-    try {
-	cP =(cProcess *) new cProcess(szAppName,szCommLine,Inherit,CreateFlags,szCurrDir);
-    }
-    catch (...) {
-	return(FALSE);
-    }
-    return(cP->bRetVal);
 }
 
 static BOOL
@@ -202,6 +186,12 @@ constant(char* name)
 #endif
 	break;
     case 'S':
+	if (strEQ(name, "STILL_ACTIVE"))
+#ifdef STILL_ACTIVE
+	    return STILL_ACTIVE;
+#else
+	    goto not_there;
+#endif
 	break;
     case 'T':
 	if (strEQ(name, "THREAD_PRIORITY_ABOVE_NORMAL"))
@@ -293,18 +283,7 @@ Create(cP,appname,cmdline,inherit,flags,curdir)
     DWORD flags
     char *curdir
 CODE:
-    if (USING_WIDE()) {
-	WCHAR wappname[MAX_PATH+1];
-	WCHAR wcmdline[MAX_PATH+1];
-	WCHAR wcurdir[MAX_PATH+1];
-	A2WHELPER(appname, wappname, sizeof(wappname));
-	A2WHELPER(cmdline, wcmdline, sizeof(wcmdline));
-	A2WHELPER(curdir, wcurdir, sizeof(wcurdir));
-        RETVAL = CreateW(cP, wappname, wcmdline, inherit, flags, wcurdir);
-    }
-    else {
-        RETVAL = Create(cP, appname, cmdline, inherit, flags, curdir);
-    }
+    RETVAL = Create(cP, appname, cmdline, inherit, flags, curdir);
 OUTPUT:
     cP
     RETVAL
@@ -455,3 +434,11 @@ CODE:
     }
 OUTPUT:
     RETVAL
+
+DWORD
+GetCurrentProcessID()
+CODE:
+    RETVAL = GetCurrentProcessId();
+OUTPUT:
+    RETVAL
+

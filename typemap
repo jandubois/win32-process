@@ -12,7 +12,7 @@ INPUT
 T_PTROBJ
 	if (sv_derived_from($arg, \"${Package}\")) {
 	    IV tmp = SvIV((SV*)SvRV($arg));
-	    $var = ($type) tmp;
+	    $var = ($type)(DWORD) tmp;
 	}
 	else
 	    croak(\"$var is not of type ${Package}\")

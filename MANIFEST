@@ -4,5 +4,6 @@ Makefile.PL
 Process.hpp
 Process.pm
 Process.xs
+hints/cygwin.pl
 test.pl
 typemap

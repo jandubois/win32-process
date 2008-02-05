@@ -1,8 +1,11 @@
-use ExtUtils::MakeMaker;
+use strict;
 use Config;
-$BORLAND = 1 if $Config{'cc'} =~ /^bcc32/i;
+use ExtUtils::MakeMaker;
+
+my $is_msvc = $Config{'cc'} =~ /^cl/i;
+
 WriteMakefile(
-    'INC'		=> ($BORLAND ? '' : '-GX'),
+    'INC'		=> ($is_msvc ? '-GX' : ''),
     'DEFINE'		=> (Win32::IsWinNT() ? '' : '-DSTRICTLY_WINDOWS95'),
     'NAME'		=> 'Win32::Process',
     'VERSION_FROM'	=> 'Process.pm',

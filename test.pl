@@ -30,7 +30,8 @@ ok(1);
 # of the test code):
 
 my $p;
-if (Win32::Process::Open($p, $$, 0)) {
+my $pid = $^O eq 'cygwin' ? Win32::Process::GetCurrentProcessID() : $$;
+if (Win32::Process::Open($p, $pid, 0)) {
   ok(1);
   ok($p->SetPriorityClass(HIGH_PRIORITY_CLASS))
 } else {

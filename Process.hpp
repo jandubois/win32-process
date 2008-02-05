@@ -56,37 +56,6 @@ public:
 	if (hLib != NULL)
 		pSetProcessAffinityMask = (LPSetProcessAffinityMask)GetProcAddress(hLib, "SetProcessAffinityMask");
     }
-    cProcess(WCHAR* szAppName, WCHAR* szCommLine, BOOL Inherit,
-	      DWORD CreateFlags, WCHAR* szCurrDir)
-    {
-	STARTUPINFOW st;
-	PROCESS_INFORMATION	procinfo;
-
-	st.lpReserved=NULL;
-	st.cb = sizeof(STARTUPINFO);
-	st.lpDesktop = NULL;
-	st.lpTitle = NULL;
-	st.dwFlags = 0;
-	st.cbReserved2 = 0;
-	st.lpReserved2 = NULL;
-	ph = NULL;
-	th = NULL;
-
-	bRetVal = CreateProcessW(szAppName,szCommLine,NULL,NULL,
-				 Inherit,CreateFlags,NULL,szCurrDir,
-				 &st,&procinfo);
-
-	if (bRetVal) {
-	    ph = procinfo.hProcess;
-	    th = procinfo.hThread;
-	    pid = procinfo.dwProcessId;
-	}
-
-	pSetProcessAffinityMask = NULL;
-	hLib = LoadLibrary("kernel32.dll");
-	if (hLib != NULL)
-		pSetProcessAffinityMask = (LPSetProcessAffinityMask)GetProcAddress(hLib, "SetProcessAffinityMask");
-    }
 
     cProcess(DWORD pid_, BOOL Inherit)
     {
@@ -103,11 +72,13 @@ public:
 	HANDLE ph_ = OpenProcess(PROCESS_DUP_HANDLE        |
 				 PROCESS_QUERY_INFORMATION |
 				 PROCESS_SET_INFORMATION   |
-				 PROCESS_TERMINATE,
+				 PROCESS_TERMINATE         |
+                                 SYNCHRONIZE,
 				 Inherit, pid_);
 	if (NULL == ph_) {
 	    return;
 	}
+        pid     = pid_;
 	ph      = ph_;
 	bRetVal = 1;
     }

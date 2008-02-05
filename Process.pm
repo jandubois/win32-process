@@ -4,7 +4,7 @@ require Exporter;
 require DynaLoader;
 @ISA = qw(Exporter DynaLoader);
 
-$VERSION = '0.09';
+$VERSION = '0.10';
 
 # Items to export into callers namespace by default. Note: do not export
 # names by default without a very good reason. Use EXPORT_OK instead.
@@ -35,6 +35,10 @@ $VERSION = '0.09';
 	THREAD_PRIORITY_TIME_CRITICAL
 );
 
+@EXPORT_OK = qw(
+	STILL_ACTIVE
+);
+
 sub AUTOLOAD {
     # This AUTOLOAD is used to 'autoload' constants from the constant()
     # XS function.
@@ -51,6 +55,9 @@ sub AUTOLOAD {
 } # end AUTOLOAD
 
 bootstrap Win32::Process;
+
+# Win32::IPC > 1.02 uses the get_Win32_IPC_HANDLE method:
+*get_Win32_IPC_HANDLE = \&get_process_handle;
 
 1;
 __END__
@@ -149,7 +156,9 @@ Set the process affinity mask.  Only available on Windows NT.
 
 =item $ProcessObj->GetExitCode($exitcode)
 
-Retrieve the exitcode of the process.
+Retrieve the exitcode of the process. Will return STILL_ACTIVE if the
+process is still running. The STILL_ACTIVE constant is only exported
+by explicit request.
 
 =item $ProcessObj->Wait($timeout)
 
@@ -160,11 +169,18 @@ To wait forever, specify the constant C<INFINITE>.
 
 Returns the Process ID.
 
+=item Win32::Process::GetCurrentProcessID()
+
+Returns the current process ID, which is the same as $$. But not on cygwin,
+where $$ is the cygwin-internal PID and not the windows PID.
+On cygwin GetCurrentProcessID() returns the windows PID as needed for all
+the Win32::Process functions.
+
 =back
 
 =head1 EXPORTS
 
-The following constants are exported by default.
+The following constants are exported by default:
 
 	CREATE_DEFAULT_ERROR_MODE
 	CREATE_NEW_CONSOLE
@@ -189,6 +205,10 @@ The following constants are exported by default.
 	THREAD_PRIORITY_LOWEST
 	THREAD_PRIORITY_NORMAL
 	THREAD_PRIORITY_TIME_CRITICAL
+
+The following additional constants are exported by request only:
+
+	STILL_ACTIVE
 
 =cut
 
