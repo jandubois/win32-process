@@ -21,7 +21,7 @@ public:
 
     BOOL    bRetVal;
     cProcess(char* szAppName, char* szCommLine, BOOL Inherit,
-	      DWORD CreateFlags, char* szCurrDir)
+	      DWORD CreateFlags, void *env, char* szCurrDir)
     {
 	STARTUPINFOA st;
 	PROCESS_INFORMATION	procinfo;
@@ -37,7 +37,7 @@ public:
 	th = NULL;
 
 	bRetVal = CreateProcessA(szAppName,szCommLine,NULL,NULL,
-				 Inherit,CreateFlags,NULL,szCurrDir,
+				 Inherit,CreateFlags,env,szCurrDir,
 				 &st,&procinfo);
 
 	if (bRetVal) {

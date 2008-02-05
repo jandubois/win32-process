@@ -1,8 +1,13 @@
 Revision history for Perl extension Win32::Process.
 
+0.08  Tue Dec 26 2000
+	- make sure the environment is correctly inherited by the new
+	  process.  Only implemented in non-Unicode branch!
+	  (by Jan Dubois <jand@ActiveState.com>)
+
 0.07  Mon May 22 21:45:19 2000
 	- support for passing Unicode strings to methods (thanks to
-	  Doug Lankshear <dougl@activestate.com>)
+	  Doug Lankshear <dougl@ActiveState.com>)
 
 0.06  Sat Sep 25 15:33:29 1999
 	- added GetProcessID() and KillProcess() (suggested by
