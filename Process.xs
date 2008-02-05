@@ -1,3 +1,4 @@
+#include <stdlib.h>		// avoid BCC-5.0 brainmelt
 #include <math.h>		// avoid VC-5.0 brainmelt
 #include "Process.hpp"
 #define WIN32_LEAN_AND_MEAN
