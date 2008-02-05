@@ -5,15 +5,32 @@
 #include <windows.h>
 
 #if defined(__cplusplus)
+#include <stdlib.h>
 extern "C" {
 #endif
+
 #include "EXTERN.h"
 #include "perl.h"
 #include "XSUB.H"
 
+#include "../ppport.h"
+
 
 static BOOL
 Create(cProcess* &cP,char* szAppName,char* szCommLine,DWORD Inherit,DWORD CreateFlags,char* szCurrDir)
+{
+    cP = NULL;
+    try {
+	cP =(cProcess *) new cProcess(szAppName,szCommLine,Inherit,CreateFlags,szCurrDir);
+    }
+    catch (...) {
+	return(FALSE);
+    }
+    return(cP->bRetVal);
+}
+
+static BOOL
+CreateW(cProcess* &cP,WCHAR* szAppName,WCHAR* szCommLine,DWORD Inherit,DWORD CreateFlags,WCHAR* szCurrDir)
 {
     cP = NULL;
     try {
@@ -250,7 +267,18 @@ Create(cP,appname,cmdline,inherit,flags,curdir)
     DWORD flags
     char *curdir
 CODE:
-    RETVAL = Create(cP, appname, cmdline, inherit, flags, curdir);
+    if (USING_WIDE()) {
+	WCHAR wappname[MAX_PATH+1];
+	WCHAR wcmdline[MAX_PATH+1];
+	WCHAR wcurdir[MAX_PATH+1];
+	A2WHELPER(appname, wappname, sizeof(wappname));
+	A2WHELPER(cmdline, wcmdline, sizeof(wcmdline));
+	A2WHELPER(curdir, wcurdir, sizeof(wcurdir));
+        RETVAL = CreateW(cP, wappname, wcmdline, inherit, flags, wcurdir);
+    }
+    else {
+        RETVAL = Create(cP, appname, cmdline, inherit, flags, curdir);
+    }
 OUTPUT:
     cP
     RETVAL

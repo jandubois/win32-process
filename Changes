@@ -1,5 +1,9 @@
 Revision history for Perl extension Win32::Process.
 
+0.07  Mon May 22 21:45:19 2000
+	- support for passing Unicode strings to methods (thanks to
+	  Doug Lankshear <dougl@activestate.com>)
+
 0.06  Sat Sep 25 15:33:29 1999
 	- added GetProcessID() and KillProcess() (suggested by
 	  Sherwin Kartick <rsk@msi.com>)
