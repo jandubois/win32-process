@@ -12,7 +12,7 @@ extern "C" {
 #include "XSUB.H"
 
 
-BOOL
+static BOOL
 Create(cProcess* &cP,char* szAppName,char* szCommLine,DWORD Inherit,DWORD CreateFlags,char* szCurrDir)
 {
     cP = NULL;
@@ -28,7 +28,7 @@ Create(cProcess* &cP,char* szAppName,char* szCommLine,DWORD Inherit,DWORD Create
 
 
 static double
-constant(char* name,int arg)
+constant(char* name)
 {
     errno = 0;
     switch (*name) {
@@ -257,13 +257,8 @@ OUTPUT:
 
 
 double
-constant(name,arg)
+constant(name)
     char *name
-    int arg
-CODE:
-    RETVAL = constant(name,arg);
-OUTPUT:
-    RETVAL
 
 
 BOOL
@@ -363,3 +358,10 @@ OUTPUT:
     RETVAL
 
 
+IV
+get_process_handle(cP)
+    cProcess *cP
+CODE:
+    RETVAL = reinterpret_cast<IV>(cP->GetProcessHandle());
+OUTPUT:
+    RETVAL

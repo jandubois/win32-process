@@ -11,7 +11,7 @@ class cProcess
 
 	HANDLE				ph;
 	HANDLE				th;
-		
+
     public:
 
 	BOOL 	bRetVal;
@@ -66,4 +66,6 @@ class cProcess
 	    { return GetExitCodeProcess( ph, pdwExitCode ); }
 	DWORD Wait( DWORD TimeOut )
 	    { return WaitForSingleObject( ph, TimeOut ); }
+        HANDLE GetProcessHandle() const
+            { return ph; }
 };

@@ -1,8 +1,14 @@
 Revision history for Perl extension Win32::Process.
 
-0.01  Sat Apr  5 14:25:02 1997
-	- original version; created by h2xs 1.18
+0.03  Fri Feb 6 1998 11:07:35
+	- Removed unnecessary references to AutoLoader & Win32::IPC
+	- Simplified the AUTOLOAD and constant() functions
+	- Added get_process_handle for communication with Win32::IPC 1.00
+	- contributed by Christopher J. Madsen <ac608@yfn.ysu.edu>
+
 0.02  Sun Dec 14 06:01:44 1997
 	- added [GS]etProcessAffinityMask(), contributed by
 	  Ricardo E. Gonzalez <regonzal@gomez.sc.intel.com>
 
+0.01  Sat Apr  5 14:25:02 1997
+	- original version; created by h2xs 1.18
