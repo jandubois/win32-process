@@ -4,7 +4,7 @@ require Exporter;
 require DynaLoader;
 @ISA = qw(Exporter DynaLoader);
 
-$VERSION = '0.03';
+$VERSION = '0.04';
 
 # Items to export into callers namespace by default. Note: do not export
 # names by default without a very good reason. Use EXPORT_OK instead.
@@ -119,14 +119,14 @@ Get the priority class of the process.
 Set the priority class of the process (see exported values below for
 options).
 
-=item $ProcessObj->GetprocessAffinitymask( $processAffinityMask, $systemAffinitymask)
+=item $ProcessObj->GetProcessAffinitymask( $processAffinityMask, $systemAffinitymask)
 
 Get the process affinity mask.  This is a bitvector in which each bit
 represents the processors that a process is allowed to run on.
 
-=item $ProcessObj->SetprocessAffinitymask( $processAffinityMask )
+=item $ProcessObj->SetProcessAffinitymask( $processAffinityMask )
 
-Set the process affinity mask.
+Set the process affinity mask.  Only available on Windows NT.
 
 =item $ProcessObj->GetExitCode( $ExitCode )
 

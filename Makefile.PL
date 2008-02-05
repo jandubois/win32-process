@@ -2,7 +2,8 @@ use ExtUtils::MakeMaker;
 use Config;
 $BORLAND = 1 if $Config{'cc'} =~ /^bcc32/i;
 WriteMakefile(
-    'INC'	=> ($BORLAND ? '' : '-GX') ,
+    'INC'	=> ($BORLAND ? '' : '-GX'),
+    'DEFINE'	=> (Win32::IsWinNT() ? '' : '-DSTRICTLY_WINDOWS95'),
     'NAME'	=> 'Win32::Process',
     'VERSION_FROM' => 'Process.pm',
     'XS'	=> { 'Process.xs' => 'Process.cpp' },

@@ -61,7 +61,11 @@ class cProcess
 	BOOL GetProcessAffinityMask( DWORD* pdwProcessAffinityMask, DWORD* pdwSystemAffinityMask )
 	    { return ::GetProcessAffinityMask( ph, pdwProcessAffinityMask, pdwSystemAffinityMask ); }
 	BOOL SetProcessAffinityMask( DWORD dwProcessAffinityMask )
+#ifdef STRICTLY_WINDOWS95 /* Windows95 doesn't support SetProcessAffinityMask() */
+	    { return FALSE; }
+#else
 	    { return ::SetProcessAffinityMask( ph, dwProcessAffinityMask ); }
+#endif
 	BOOL GetExitCode( DWORD* pdwExitCode )
 	    { return GetExitCodeProcess( ph, pdwExitCode ); }
 	DWORD Wait( DWORD TimeOut )

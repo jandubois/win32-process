@@ -1,6 +1,10 @@
 Revision history for Perl extension Win32::Process.
 
-0.03  Fri Feb 6 1998 11:07:35
+0.04  Sun May 10 1998 20:35:29
+	- SetProcessAffinityMask() is not available on Win95, protect
+	  it with an #ifdef and supply separate binary
+
+0.03  Fri Feb  6 1998 11:07:35
 	- Removed unnecessary references to AutoLoader & Win32::IPC
 	- Simplified the AUTOLOAD and constant() functions
 	- Added get_process_handle for communication with Win32::IPC 1.00
