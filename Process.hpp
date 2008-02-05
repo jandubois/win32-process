@@ -82,6 +82,31 @@ public:
 	if (hLib != NULL)
 		pSetProcessAffinityMask = (LPSetProcessAffinityMask)GetProcAddress(hLib, "SetProcessAffinityMask");
     }
+
+    cProcess(DWORD pid_, BOOL Inherit)
+    {
+	ph      = NULL;
+	th      = NULL;
+	pid     = 0;
+	bRetVal = 0;
+
+	pSetProcessAffinityMask = NULL;
+	hLib = LoadLibrary("kernel32.dll");
+	if (hLib != NULL)
+		pSetProcessAffinityMask = (LPSetProcessAffinityMask)GetProcAddress(hLib, "SetProcessAffinityMask");
+
+	HANDLE ph_ = OpenProcess(PROCESS_DUP_HANDLE        |
+				 PROCESS_QUERY_INFORMATION |
+				 PROCESS_SET_INFORMATION   |
+				 PROCESS_TERMINATE,
+				 Inherit, pid_);
+	if (NULL == ph_) {
+	    return;
+	}
+	ph      = ph_;
+	bRetVal = 1;
+    }
+
     ~cProcess()
     {
 	CloseHandle( th );
@@ -91,9 +116,9 @@ public:
     BOOL Kill(UINT uExitCode)
 	{ return TerminateProcess( ph, uExitCode ); }
     BOOL Suspend()
-	{ return SuspendThread( th ); }
+	{ return th ? SuspendThread( th ) : 0; }
     BOOL Resume()
-	{ return ResumeThread( th ); }
+	{ return th ? ResumeThread( th ) : 0; }
     BOOL GetPriorityClass( DWORD* pdwPriorityClass )
     {
 	(*pdwPriorityClass) = ::GetPriorityClass(ph);

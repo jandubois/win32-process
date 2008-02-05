@@ -55,6 +55,19 @@ CreateW(cProcess* &cP,WCHAR* szAppName,WCHAR* szCommLine,DWORD Inherit,DWORD Cre
     return(cP->bRetVal);
 }
 
+static BOOL
+Open_(cProcess * &cP, DWORD pid, DWORD Inherit)
+{
+    cP = NULL;
+    try {
+	cP = (cProcess *) new cProcess(pid, Inherit);
+    }
+    catch (...) {
+	return(FALSE);
+    }
+    return(cP->bRetVal);
+}
+
 
 
 static double
@@ -292,6 +305,18 @@ CODE:
     else {
         RETVAL = Create(cP, appname, cmdline, inherit, flags, curdir);
     }
+OUTPUT:
+    cP
+    RETVAL
+
+
+BOOL
+Open(cP,pid,inherit)
+    cProcess *cP = NULL;
+    DWORD pid
+    BOOL inherit
+CODE:
+    RETVAL = Open_(cP, pid, inherit);
 OUTPUT:
     cP
     RETVAL

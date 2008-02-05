@@ -4,7 +4,7 @@ require Exporter;
 require DynaLoader;
 @ISA = qw(Exporter DynaLoader);
 
-$VERSION = '0.08';
+$VERSION = '0.09';
 
 # Items to export into callers namespace by default. Note: do not export
 # names by default without a very good reason. Use EXPORT_OK instead.
@@ -98,6 +98,17 @@ Creates a new process.
 	$iflags		flag: inherit calling processes handles or not
 	$cflags		flags for creation (see exported vars below)
 	$curdir		working dir of new process
+
+Returns non-zero on success, 0 on failure.
+
+=item Win32::Process::Open($obj,$pid,$iflags)
+
+Creates a handle Perl can use to an existing process as identified by $pid.
+The $iflags is the inherit flag that is passed to OpenProcess.  Currently
+Win32::Process objects created using Win32::Process::Open cannot Suspend
+or Resume the process.  All other calls should work.
+
+Win32::Process::Open returns non-zero on success, 0 on failure.
 
 =item Win32::Process::KillProcess($pid, $exitcode)
 

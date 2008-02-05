@@ -6,11 +6,22 @@
 # Change 1..1 below to 1..last_test_to_print .
 # (It may become useful if the test is moved to ./t subdirectory.)
 
-BEGIN { $| = 1; print "1..1\n"; }
+use strict;
+use vars qw($loaded);
+
+BEGIN { $| = 1; print "1..4\n"; }
 END {print "not ok 1\n" unless $loaded;}
+
+my $ok_count = 1;
+sub ok {
+  shift or print "not ";
+  print "ok $ok_count\n";
+  ++$ok_count;
+}
+
 use Win32::Process;
 $loaded = 1;
-print "ok 1\n";
+ok(1);
 
 ######################### End of black magic.
 
@@ -18,3 +29,13 @@ print "ok 1\n";
 # (correspondingly "not ok 13") depending on the success of chunk 13
 # of the test code):
 
+my $p;
+if (Win32::Process::Open($p, $$, 0)) {
+  ok(1);
+  ok($p->SetPriorityClass(HIGH_PRIORITY_CLASS))
+} else {
+  ok(0);
+  ok(0);
+}
+
+ok(!Win32::Process::Open($p, -1, 0));
