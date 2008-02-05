@@ -1,5 +1,13 @@
 Revision history for Perl extension Win32::Process.
 
+0.06  Sat Sep 25 15:33:29 1999
+	- added GetProcessID() and KillProcess() (suggested by
+	  Sherwin Kartick <rsk@msi.com>)
+
+0.05  Thr Oct  1 1998 16:58:24
+	- Changed SetProcessAffinityMask to be dynalinked
+	  same build runs on NT and 95.
+
 0.04  Sun May 10 1998 20:35:29
 	- SetProcessAffinityMask() is not available on Win95, protect
 	  it with an #ifdef and supply separate binary
@@ -8,7 +16,7 @@ Revision history for Perl extension Win32::Process.
 	- Removed unnecessary references to AutoLoader & Win32::IPC
 	- Simplified the AUTOLOAD and constant() functions
 	- Added get_process_handle for communication with Win32::IPC 1.00
-	- contributed by Christopher J. Madsen <chris_madsen@geocities.com>
+	- contributed by Christopher J. Madsen <ac608@yfn.ysu.edu>
 
 0.02  Sun Dec 14 06:01:44 1997
 	- added [GS]etProcessAffinityMask(), contributed by

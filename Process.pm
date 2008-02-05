@@ -4,7 +4,7 @@ require Exporter;
 require DynaLoader;
 @ISA = qw(Exporter DynaLoader);
 
-$VERSION = '0.04';
+$VERSION = '0.06';
 
 # Items to export into callers namespace by default. Note: do not export
 # names by default without a very good reason. Use EXPORT_OK instead.
@@ -98,6 +98,11 @@ Creates a new process.
 	$cflags		flags for creation (see exported vars below)
 	$curdir		working dir of new process
 
+=item Win32::Process::KillProcess($pid, $exitcode)
+
+Terminates any process identified by $pid.  The process will exit
+with $exitcode.
+
 =item $ProcessObj->Suspend()
 
 Suspend the process associated with the $ProcessObj.
@@ -135,6 +140,10 @@ Retrieve the exitcode of the process.
 =item $ProcessObj->Wait($Timeout)
 
 Wait for the process to die. forever = INFINITE
+
+=item $ProcessObj->GetProcessID()
+
+Returns the Process ID.
 
 =back
 

@@ -365,3 +365,27 @@ CODE:
     RETVAL = reinterpret_cast<IV>(cP->GetProcessHandle());
 OUTPUT:
     RETVAL
+
+DWORD
+GetProcessID(cP)
+    cProcess *cP
+CODE:
+    RETVAL = cP->GetProcessID();
+OUTPUT:
+    RETVAL
+
+BOOL
+KillProcess(pid, exitcode)
+    DWORD pid
+    unsigned int exitcode
+CODE:
+    {
+	HANDLE ph = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
+	if (ph) {
+	    RETVAL = TerminateProcess(ph, exitcode);
+	    if (RETVAL)
+		CloseHandle(ph);
+	}
+    }
+OUTPUT:
+    RETVAL
