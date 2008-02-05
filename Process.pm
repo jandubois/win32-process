@@ -60,23 +60,24 @@ __END__
 Win32::Process - Create and manipulate processes.
 
 =head1 SYNOPSIS
-	use Win32::Process;
-	use Win32;
 
-	sub ErrorReport{
-		print Win32::FormatMessage( Win32::GetLastError() );
-	}
+    use Win32::Process;
+    use Win32;
 
-	Win32::Process::Create($ProcessObj,
-				"D:\\winnt35\\system32\\notepad.exe",
+    sub ErrorReport{
+	print Win32::FormatMessage( Win32::GetLastError() );
+    }
+
+    Win32::Process::Create($ProcessObj,
+				"C:\\winnt\\system32\\notepad.exe",
 				"notepad temp.txt",
 				0,
 				NORMAL_PRIORITY_CLASS,
 				".")|| die ErrorReport();
 
-	$ProcessObj->Suspend();
-	$ProcessObj->Resume();
-	$ProcessObj->Wait(INFINITE);
+    $ProcessObj->Suspend();
+    $ProcessObj->Resume();
+    $ProcessObj->Wait(INFINITE);
 
 =head1  DESCRIPTION
 
@@ -124,7 +125,7 @@ Suspend the process associated with the $ProcessObj.
 
 Resume a suspended process.
 
-=item $ProcessObj->Kill( $exitcode )
+=item $ProcessObj->Kill($exitcode)
 
 Kill the associated process, have it terminate with exit code $ExitCode.
 
@@ -132,21 +133,21 @@ Kill the associated process, have it terminate with exit code $ExitCode.
 
 Get the priority class of the process.
 
-=item $ProcessObj->SetPriorityClass( $class )
+=item $ProcessObj->SetPriorityClass($class)
 
 Set the priority class of the process (see exported values below for
 options).
 
-=item $ProcessObj->GetProcessAffinitymask( $processAffinityMask, $systemAffinitymask)
+=item $ProcessObj->GetProcessAffinityMask($processAffinityMask, $systemAffinityMask)
 
 Get the process affinity mask.  This is a bitvector in which each bit
 represents the processors that a process is allowed to run on.
 
-=item $ProcessObj->SetProcessAffinitymask( $processAffinityMask )
+=item $ProcessObj->SetProcessAffinityMask($processAffinityMask)
 
 Set the process affinity mask.  Only available on Windows NT.
 
-=item $ProcessObj->GetExitCode( $exitcode )
+=item $ProcessObj->GetExitCode($exitcode)
 
 Retrieve the exitcode of the process.
 
