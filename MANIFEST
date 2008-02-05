@@ -1,8 +1,8 @@
+Changes
+MANIFEST
+Makefile.PL
+Process.hpp
 Process.pm
 Process.xs
-Process.hpp
-Changes
-Makefile.PL
-MANIFEST
 test.pl
 typemap

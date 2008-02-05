@@ -2,4 +2,7 @@ Revision history for Perl extension Win32::Process.
 
 0.01  Sat Apr  5 14:25:02 1997
 	- original version; created by h2xs 1.18
+0.02  Sun Dec 14 06:01:44 1997
+	- added [GS]etProcessAffinityMask(), contributed by
+	  Ricardo E. Gonzalez <regonzal@gomez.sc.intel.com>
 

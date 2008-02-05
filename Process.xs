@@ -313,6 +313,29 @@ OUTPUT:
 
 
 BOOL
+GetProcessAffinityMask(cP,processAffinityMask,systemAffinityMask)
+    cProcess *cP
+    DWORD processAffinityMask = NO_INIT
+    DWORD systemAffinityMask = NO_INIT
+CODE:
+    RETVAL = cP->GetProcessAffinityMask(&processAffinityMask,&systemAffinityMask);
+OUTPUT:
+    processAffinityMask
+    systemAffinityMask
+    RETVAL
+
+
+BOOL
+SetProcessAffinityMask(cP,processAffinityMask)
+    cProcess *cP
+    DWORD processAffinityMask
+CODE:
+    RETVAL = cP->SetProcessAffinityMask(processAffinityMask);
+OUTPUT:
+    RETVAL
+
+
+BOOL
 GetExitCode(cP,exitcode)
     cProcess *cP
     DWORD exitcode = NO_INIT

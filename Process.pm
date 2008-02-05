@@ -6,7 +6,7 @@ require DynaLoader;
 require AutoLoader;
 @ISA = qw(Exporter DynaLoader Win32::IPC);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 =head1 NAME
 
@@ -72,6 +72,15 @@ Get the priority class of the process.
 
 Set the priority class of the process (see exported values below for
 options).
+
+=item $ProcessObj->GetprocessAffinitymask( $processAffinityMask, $systemAffinitymask)
+
+Get the process affinity mask.  This is a bitvector in which each bit
+represents the processors that a process is allowed to run on.
+
+=item $ProcessObj->SetprocessAffinitymask( $processAffinityMask )
+
+Set the process affinity mask.
 
 =item $ProcessObj->GetExitCode( $ExitCode )
 
