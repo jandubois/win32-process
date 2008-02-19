@@ -9,7 +9,7 @@
 #  define PDWORD_PTR	DWORD*
 #endif
 
-typedef BOOL (*LPSetProcessAffinityMask)(HANDLE, DWORD);
+typedef BOOL (WINAPI *LPSetProcessAffinityMask)(HANDLE, DWORD);
 
 class cProcess
 {

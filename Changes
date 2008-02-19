@@ -1,5 +1,9 @@
 Revision history for Perl extension Win32::Process.
 
+0.11  Wed May 17 2006
+
+	- add WINAPI calling convention to LPSetProcessAffinityMask typedef
+
 0.10  Thu Sep 1 2005
 
 	- add get_Win32_IPC_HANDLE() method for Win32::IPC compatibility
