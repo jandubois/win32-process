@@ -2,6 +2,10 @@ use strict;
 use Config;
 use ExtUtils::MakeMaker;
 
+unless ($^O eq "MSWin32" || $^O eq "cygwin") {
+    die "OS unsupported\n";
+}
+
 my $is_msvc = $Config{'cc'} =~ /^cl/i;
 
 WriteMakefile(
