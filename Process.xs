@@ -13,7 +13,7 @@ extern "C" {
 #include "perl.h"
 #include "XSUB.H"
 
-#include "../ppport.h"
+#include "ppport.h"
 
 static BOOL
 Create(cProcess* &cP, char* szAppName, char* szCommLine, DWORD Inherit,
