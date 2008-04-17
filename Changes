@@ -8,6 +8,8 @@ Revision history for Perl extension Win32::Process.
 
 	- added META.yml and ppport.h
 
+	- fixed typemap for Win64
+
 0.11  Wed May 17 2006
 
 	- add WINAPI calling convention to LPSetProcessAffinityMask typedef
