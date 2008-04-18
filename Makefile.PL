@@ -3,7 +3,9 @@ use warnings;
 
 use Config qw(%Config);
 use ExtUtils::MakeMaker;
-use Win32;
+
+# Win32.pm is not available on Cygwin, but the function is compiled in
+require Win32 unless defined &Win32::IsWinNT;
 
 unless ($^O eq "MSWin32" || $^O eq "cygwin") {
     die "OS unsupported\n";
