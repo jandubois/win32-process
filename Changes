@@ -1,5 +1,9 @@
 Revision history for Perl extension Win32::Process.
 
+0.13  Tue Apr 22 2008
+
+        - Get rid of the "require Win32" statement in Makefile.PL.
+
 0.12  Tue Apr 15 2008
 
 	- version 0.12 for separate upload to CPAN
