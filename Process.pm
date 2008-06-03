@@ -4,7 +4,7 @@ require Exporter;
 require DynaLoader;
 @ISA = qw(Exporter DynaLoader);
 
-$VERSION = '0.12';
+$VERSION = '0.13';
 
 # Items to export into callers namespace by default. Note: do not export
 # names by default without a very good reason. Use EXPORT_OK instead.
@@ -37,6 +37,8 @@ $VERSION = '0.12';
 
 @EXPORT_OK = qw(
 	STILL_ACTIVE
+	ABOVE_NORMAL_PRIORITY_CLASS
+	BELOW_NORMAL_PRIORITY_CLASS
 );
 
 sub AUTOLOAD {
@@ -143,7 +145,9 @@ Get the priority class of the process.
 =item $ProcessObj->SetPriorityClass($class)
 
 Set the priority class of the process (see exported values below for
-options).
+options).  Note that the ABOVE_NORMAL_PRIORITY_CLASS and
+BELOW_NORMAL_PRIORITY_CLASS classes are only available on Windows 2000
+and later.
 
 =item $ProcessObj->GetProcessAffinityMask($processAffinityMask, $systemAffinityMask)
 
@@ -208,10 +212,8 @@ The following constants are exported by default:
 
 The following additional constants are exported by request only:
 
+	ABOVE_NORMAL_PRIORITY_CLASS
+	BELOW_NORMAL_PRIORITY_CLASS
 	STILL_ACTIVE
 
 =cut
-
-# Local Variables:
-# tmtrack-file-task: "Win32::Process"
-# End:

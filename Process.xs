@@ -5,7 +5,7 @@
 #include <windows.h>
 
 #if defined(__cplusplus)
-#include <stdlib.h>
+#   include <stdlib.h>
 extern "C" {
 #endif
 
@@ -14,6 +14,13 @@ extern "C" {
 #include "XSUB.H"
 
 #include "ppport.h"
+
+#ifndef ABOVE_NORMAL_PRIORITY_CLASS
+#   define ABOVE_NORMAL_PRIORITY_CLASS       0x00008000
+#endif
+#ifndef BELOW_NORMAL_PRIORITY_CLASS
+#   define BELOW_NORMAL_PRIORITY_CLASS       0x00004000
+#endif
 
 static BOOL
 Create(cProcess* &cP, char* szAppName, char* szCommLine, DWORD Inherit,
@@ -60,8 +67,20 @@ constant(char* name)
     errno = 0;
     switch (*name) {
     case 'A':
+	if (strEQ(name, "ABOVE_NORMAL_PRIORITY_CLASS"))
+#ifdef ABOVE_NORMAL_PRIORITY_CLASS
+	    return ABOVE_NORMAL_PRIORITY_CLASS;
+#else
+	    goto not_there;
+#endif
 	break;
     case 'B':
+	if (strEQ(name, "BELOW_NORMAL_PRIORITY_CLASS"))
+#ifdef BELOW_NORMAL_PRIORITY_CLASS
+	    return BELOW_NORMAL_PRIORITY_CLASS;
+#else
+	    goto not_there;
+#endif
 	break;
     case 'C':
 	if (strEQ(name, "CREATE_DEFAULT_ERROR_MODE"))
