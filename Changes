@@ -7,6 +7,9 @@ Revision history for Perl extension Win32::Process.
 	- Add ABOVE_NORMAL_PRIORITY_CLASS and BELOW_NORMAL_PRIORITY_CLASS
 	  constants (not exported by default).
 
+	- Use T_BOOL instead of T_IV for BOOL typemap entry so that
+	  the code doesn't warn on undef.
+
 0.12  Tue Apr 15 2008
 
 	- version 0.12 for separate upload to CPAN

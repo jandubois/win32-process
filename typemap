@@ -3,7 +3,7 @@ DWORD                   T_NV
 DWORD *                 T_PV
 LPCSTR                  T_PV
 LPCTSTR                 T_PV
-BOOL                    T_IV
+BOOL                    T_BOOL
 LPTSTR                  T_PV
 cProcess *              T_PTROBJ
 
