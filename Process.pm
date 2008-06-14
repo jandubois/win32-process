@@ -146,7 +146,7 @@ Get the priority class of the process.
 
 Set the priority class of the process (see exported values below for
 options).  Note that the ABOVE_NORMAL_PRIORITY_CLASS and
-BELOW_NORMAL_PRIORITY_CLASS classes are only available on Windows 2000
+BELOW_NORMAL_PRIORITY_CLASS classes only work on Windows 2000
 and later.
 
 =item $ProcessObj->GetProcessAffinityMask($processAffinityMask, $systemAffinityMask)

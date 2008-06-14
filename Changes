@@ -1,8 +1,8 @@
 Revision history for Perl extension Win32::Process.
 
-0.13  unreleased
+0.13  Fri Jun 13 2008
 
-        - Get rid of the "require Win32" statement in Makefile.PL.
+	- Get rid of the "require Win32" statement in Makefile.PL.
 
 	- Add ABOVE_NORMAL_PRIORITY_CLASS and BELOW_NORMAL_PRIORITY_CLASS
 	  constants (not exported by default).
