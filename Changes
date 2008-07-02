@@ -1,5 +1,11 @@
 Revision history for Perl extension Win32::Process.
 
+0.14  Wed Jul 02 2008
+
+        - Re-insert "require Win32" statement in Makefile.PL.  There
+	  are Cygwin perl versions that don't have Win32CORE statically
+	  linked.
+
 0.13  Fri Jun 13 2008
 
 	- Get rid of the "require Win32" statement in Makefile.PL.

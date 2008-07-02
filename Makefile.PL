@@ -8,6 +8,8 @@ unless ($^O eq "MSWin32" || $^O eq "cygwin") {
     die "OS unsupported\n";
 }
 
+require Win32;
+
 my %param = (
     NAME          => 'Win32::Process',
     VERSION_FROM  => 'Process.pm',
