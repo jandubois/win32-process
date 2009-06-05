@@ -1,5 +1,8 @@
 Revision history for Perl extension Win32::Process.
 
+0.15  unreleased
+        - Add LICENSE section to the POD (RT #41182).
+
 0.14  Wed Jul 02 2008
 
         - Re-insert "require Win32" statement in Makefile.PL.  There
