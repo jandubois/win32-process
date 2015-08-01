@@ -169,6 +169,16 @@ by explicit request.
 Wait for the process to die.  $timeout should be specified in milliseconds.
 To wait forever, specify the constant C<INFINITE>.
 
+Returns a false value if the process is still alive by the time timeout
+expires:
+
+    if ( $process->Wait(1) ) {
+        print "Process is done\n";
+    }
+    else {
+        print "Process is still running\n";
+    }
+
 =item $ProcessObj->GetProcessID()
 
 Returns the Process ID.
