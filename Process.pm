@@ -73,6 +73,8 @@ Win32::Process - Create and manipulate processes.
     use Win32::Process;
     use Win32;
 
+    my $ProcessObj;
+
     sub ErrorReport{
 	print Win32::FormatMessage( Win32::GetLastError() );
     }
