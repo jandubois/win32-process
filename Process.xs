@@ -447,7 +447,12 @@ KillProcess(pid, exitcode)
     unsigned int exitcode
 CODE:
     {
-	HANDLE ph = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
+	HANDLE ph = OpenProcess(PROCESS_DUP_HANDLE        |
+	                        PROCESS_QUERY_INFORMATION |
+	                        PROCESS_SET_INFORMATION   |
+	                        PROCESS_TERMINATE         |
+	                        SYNCHRONIZE,
+	                        0, pid);
 	if (ph) {
 	    RETVAL = TerminateProcess(ph, exitcode);
 	    if (RETVAL)
