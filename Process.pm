@@ -104,13 +104,32 @@ Creates a new process.
     Args:
 
 	$obj		container for process object
-	$appname	full path name of executable module
-	$cmdline	command line args
+	$appname	full path name of executable module (can be 'undef')
+	$cmdline	command line args (can be 'undef')
 	$iflags		flag: inherit calling processes handles or not
 	$cflags		flags for creation (see exported vars below)
 	$curdir		working dir of new process
 
 Returns non-zero on success, 0 on failure.
+
+$appname can be 'undef' to allow $cmdline to specify the command without
+an absolute path; $ENV{PATH} will be searched to find the executable. eg:
+
+    Win32::Process::Create($ProcessObj,
+                           undef,
+                          "netstat -an",      # finds "netstat.exe" from $ENV{PATH}
+                          0,
+                          NORMAL_PRIORITY_CLASS,
+                          ".");
+
+See Microsoft's CreateProcess() docs for details. For instance, only .exe's will
+be searched; if you are trying to run a .com or .bat, you'll have to specify the
+extension, eg:
+
+    Win32::Process::Create($ProcessObj,
+                           undef,
+                          "tree.com /A /F",
+                          [..]
 
 =item Win32::Process::Open($obj,$pid,$iflags)
 
